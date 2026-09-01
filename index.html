@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Mind Reader AI - An interactive number guessing and mathematical mind reading game."
+    >
+
+    <title>Mind Reader AI | Hussain Ali</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="grid-background"></div>
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-purple"></div>
+
+    <!-- Header -->
+    <header class="header">
+
+        <a href="#" class="brand">
+            <div class="brand-symbol">
+                <span>🧠</span>
+            </div>
+
+            <div>
+                <strong>MIND</strong>
+                <span>READER</span>
+            </div>
+        </a>
+
+        <div class="header-title">
+            <h1>Mind Reader <span>AI</span></h1>
+            <p>Can I predict what you're thinking?</p>
+        </div>
+
+        <div class="header-actions">
+
+            <button
+                class="icon-button"
+                id="soundButton"
+                title="Toggle sound"
+            >
+                🔊
+            </button>
+
+            <button
+                class="icon-button"
+                id="themeButton"
+                title="Toggle theme"
+            >
+                ☀️
+            </button>
+
+            <a
+                class="icon-button"
+                href="https://github.com/hussainali-cs"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="GitHub"
+            >
+                ◉
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="container">
+
+        <!-- Mode Selector -->
+        <section class="mode-selector">
+
+            <button
+                class="mode-button active"
+                data-mode="reader"
+            >
+                <span class="mode-icon">🧠</span>
+
+                <span>
+                    <strong>Mind Reader</strong>
+                    <small>I'll find your number</small>
+                </span>
+            </button>
+
+
+            <button
+                class="mode-button"
+                data-mode="guesser"
+            >
+                <span class="mode-icon">🤖</span>
+
+                <span>
+                    <strong>Guess My Number</strong>
+                    <small>I'll guess your number</small>
+                </span>
+            </button>
+
+        </section>
+
+
+        <!-- GAME -->
+        <section class="game-card">
+
+            <!-- Mind Reader -->
+            <div
+                class="game-mode"
+                id="readerMode"
+            >
+
+                <div class="game-header">
+
+                    <div class="game-badge">
+                        <span>🧠</span>
+                        MATHEMATICAL MIND READING
+                    </div>
+
+                    <h2>
+                        Think of a number
+                        <span>1–63</span>
+                    </h2>
+
+                    <p>
+                        Keep a number in your mind.
+                        Don't tell me what it is.
+                        I'll figure it out.
+                    </p>
+
+                </div>
+
+
+                <!-- Progress -->
+                <div class="reader-progress">
+
+                    <div class="progress-info">
+                        <span>
+                            CARD
+                            <strong id="cardNumber">1</strong>
+                            OF 6
+                        </span>
+
+                        <span id="readerInstruction">
+                            Does your number appear below?
+                        </span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div
+                            class="progress-fill"
+                            id="progressFill"
+                        ></div>
+                    </div>
+
+                </div>
+
+
+                <!-- Card -->
+                <div class="number-card">
+
+                    <div
+                        class="number-grid"
+                        id="numberGrid"
+                    ></div>
+
+                </div>
+
+
+                <!-- Controls -->
+                <div class="reader-controls">
+
+                    <button
+                        class="answer-button no"
+                        id="noButton"
+                    >
+                        <span>✕</span>
+                        NO
+                    </button>
+
+                    <button
+                        class="answer-button yes"
+                        id="yesButton"
+                    >
+                        <span>✓</span>
+                        YES
+                    </button>
+
+                </div>
+
+
+                <div class="reader-hint">
+                    <span>💡</span>
+                    <p>
+                        Your number is between
+                        <strong>1 and 63</strong>.
+                        Answer honestly for the magic to work.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Guess My Number -->
+            <div
+                class="game-mode hidden"
+                id="guesserMode"
+            >
+
+                <div class="game-header">
+
+                    <div class="game-badge purple">
+                        <span>🤖</span>
+                        AI NUMBER GUESSING
+                    </div>
+
+                    <h2>
+                        Let me guess
+                        <span>your number</span>
+                    </h2>
+
+                    <p>
+                        Think of a number between 1 and 100.
+                        I'll find it using binary search.
+                    </p>
+
+                </div>
+
+
+                <!-- Bot Guess -->
+                <div class="bot-area">
+
+                    <div class="bot-avatar">
+                        🤖
+                    </div>
+
+                    <div class="bot-status">
+
+                        <span
+                            class="thinking-label"
+                            id="thinkingLabel"
+                        >
+                            I'M READY
+                        </span>
+
+                        <div
+                            class="bot-guess"
+                            id="botGuess"
+                        >
+                            50
+                        </div>
+
+                        <p id="botMessage">
+                            Is your number 50?
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Attempt -->
+                <div class="attempt-area">
+
+                    <div>
+                        <span>ATTEMPTS</span>
+                        <strong id="attempts">0</strong>
+                    </div>
+
+                    <div>
+                        <span>RANGE</span>
+                        <strong id="rangeDisplay">1 – 100</strong>
+                    </div>
+
+                </div>
+
+
+                <!-- Bot Controls -->
+                <div class="guess-controls">
+
+                    <button
+                        class="guess-button lower"
+                        id="lowerButton"
+                    >
+                        <span>↓</span>
+
+                        <div>
+                            <strong>LOWER</strong>
+                            <small>My guess is too high</small>
+                        </div>
+                    </button>
+
+
+                    <button
+                        class="guess-button correct"
+                        id="correctButton"
+                    >
+                        <span>✓</span>
+
+                        <div>
+                            <strong>CORRECT</strong>
+                            <small>You guessed it!</small>
+                        </div>
+                    </button>
+
+
+                    <button
+                        class="guess-button higher"
+                        id="higherButton"
+                    >
+                        <span>↑</span>
+
+                        <div>
+                            <strong>HIGHER</strong>
+                            <small>My guess is too low</small>
+                        </div>
+                    </button>
+
+                </div>
+
+
+                <div class="reader-hint">
+                    <span>💡</span>
+                    <p>
+                        I'll use <strong>binary search</strong>
+                        to narrow down your number as quickly
+                        as possible.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Stats -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <span class="stat-icon">🎯</span>
+
+                <div>
+                    <small>GAMES PLAYED</small>
+                    <strong id="gamesPlayed">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-icon">🏆</span>
+
+                <div>
+                    <small>YOU WON</small>
+                    <strong id="gamesWon">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-icon">⚡</span>
+
+                <div>
+                    <small>BEST ATTEMPTS</small>
+                    <strong id="bestAttempts">—</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-icon">🧠</span>
+
+                <div>
+                    <small>ALGORITHM</small>
+                    <strong>Binary Search</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Explanation -->
+        <section class="algorithm-card">
+
+            <div class="algorithm-title">
+
+                <span>⚙️</span>
+
+                <div>
+                    <h3>How does the magic work?</h3>
+                    <p>
+                        It's not magic. It's mathematics.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="algorithm-steps">
+
+                <div class="algorithm-step">
+
+                    <span>01</span>
+
+                    <div>
+                        <strong>Think</strong>
+                        <p>
+                            Choose any number within the given range.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="algorithm-step">
+
+                    <span>02</span>
+
+                    <div>
+                        <strong>Answer</strong>
+                        <p>
+                            Give simple YES or NO answers.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="algorithm-step">
+
+                    <span>03</span>
+
+                    <div>
+                        <strong>Calculate</strong>
+                        <p>
+                            The algorithm eliminates impossible numbers.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="algorithm-step">
+
+                    <span>04</span>
+
+                    <div>
+                        <strong>Reveal</strong>
+                        <p>
+                            Your number is determined mathematically.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Result Modal -->
+    <div
+        class="result-overlay"
+        id="resultOverlay"
+    >
+
+        <div class="result-card">
+
+            <div
+                class="result-icon"
+                id="resultIcon"
+            >
+                🧠
+            </div>
+
+            <div
+                class="result-label"
+                id="resultLabel"
+            >
+                MIND READ
+            </div>
+
+            <h2 id="resultTitle">
+                I KNOW YOUR NUMBER!
+            </h2>
+
+            <div
+                class="result-number"
+                id="resultNumber"
+            >
+                42
+            </div>
+
+            <p id="resultDescription">
+                Your number has been mathematically determined.
+            </p>
+
+            <button
+                class="play-again"
+                id="playAgain"
+            >
+                PLAY AGAIN
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div>
+            Built with
+            <strong>HTML</strong>,
+            <strong>CSS</strong> &
+            <strong>JavaScript</strong>
+        </div>
+
+        <div>
+            © <span id="year"></span>
+            Hussain Ali
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
